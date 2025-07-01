@@ -1,0 +1,23 @@
+name: Session2 Class Work
+
+on:
+  push:
+    branches: [ "feature/session2-class" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  event-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Report Event
+        run: |
+          echo "Triggered by: ${{ github.event_name }}"
+
+      - name: Show Branch
+        run: |
+          echo "Branch: ${{ github.ref_name }}"
