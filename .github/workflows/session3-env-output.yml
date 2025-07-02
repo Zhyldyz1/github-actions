@@ -1,0 +1,41 @@
+name: Session3 Env & Output
+
+on:
+  push:
+    branches:
+      - feature/session3-env-output
+  workflow_dispatch:
+
+env:
+  GLOBAL_MESSAGE: "Hello from Global!"
+  WORKFLOW_VERSION: "1.0"
+
+jobs:
+  process-info:
+    runs-on: ubuntu-latest
+    env:
+      JOB_NAME: "Processing Job"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Display Global and Job Env Vars
+        run: |
+          echo "Global Message: $GLOBAL_MESSAGE"
+          echo "Workflow Version: $WORKFLOW_VERSION"
+          echo "Job Name: $JOB_NAME"
+
+      - name: Generate Dynamic Output
+        id: generate-dynamic-output
+        env:
+          STEP_MESSAGE: "Step-specific message!"
+        run: |
+          echo "MY_DYNAMIC_VALUE=This is a dynamic value from the step!" >> $GITHUB_OUTPUT
+          echo "Step Message: $STEP_MESSAGE"
+
+      - name: Consume Dynamic Output
+        run: |
+          echo "Received Dynamic Value: ${{ steps.generate-dynamic-output.outputs.MY_DYNAMIC_VALUE }}"
+
+      - name: List Default Env Vars
+        run: env | sort
