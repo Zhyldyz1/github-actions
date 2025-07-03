@@ -12,8 +12,14 @@ env:
 jobs:
   info-collection:
     runs-on: ubuntu-latest
-  env:
-    EMVIRONMENT_TYPE: "Development"
+    env:
+      EMVIRONMENT_TYPE: "Development"
     steps:
       - uses: actions/checkout@v4
+      - name: Show All Environment Variables
       - run: |
+          echo "The project name is: $PROJECT_NAME"
+          echo "The environment type is: $ENVIRONMENT TYPE"
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "GitHub Workflow: ${{ github.workflow }}"
+
