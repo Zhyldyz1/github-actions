@@ -23,3 +23,7 @@ jobs:
           echo "GitHub Actor: ${{ github.actor }}"
           echo "GitHub Workflow: ${{ github.workflow }}"
 
+      - name: Generate Custom Output
+        id: custom-output
+      - run: |
+          echo "echo "CUSTOM_MESSAGE=Workflow for $PROJECT_NAME, running on branch ${{ github.ref_name }}." >> $GITHUB_OUTPUT"
