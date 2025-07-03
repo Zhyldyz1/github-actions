@@ -2,7 +2,7 @@ name: Session 3 Homework Workflow
 
 on:
   push:
-    branches: ["feature/session3-homework"]
+    branches: ["feature/session3-homework-debug"]
   workflow_dispatch:
 
 env:
@@ -46,3 +46,4 @@ jobs:
 
       - name: List S3 Buckets
         run: aws s3 ls --region us-east-1
+
