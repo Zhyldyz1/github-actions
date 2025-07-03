@@ -1,0 +1,19 @@
+name: Session 3 Homework Workflow
+
+on:
+  push:
+    branches: [ "feature/session3-homework" ]
+  workflow_dispatch:  # Manually triggered
+
+
+env: 
+  PROJECT_NAME: "Session3 Homework"
+
+jobs:
+  info-collection:
+    runs-on: ubuntu-latest
+  env:
+    EMVIRONMENT_TYPE: "Development"
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
