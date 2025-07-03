@@ -3,36 +3,36 @@ name: Session 3 Homework Workflow
 # 1. Setting up configurations
 on:
   push:
-    branches: [ "feature/session3-homework" ]
-  workflow_dispatch:  # We should manually trigger the workflow
+    branches: ["feature/session3-homework"]
+  workflow_dispatch:
 
-
-env: 
+env:
   PROJECT_NAME: "Session3 Homework"
 
 jobs:
   info-collection:
     runs-on: ubuntu-latest
     env:
-      EMVIRONMENT_TYPE: "Development"
+      ENVIRONMENT_TYPE: "Development"
     steps:
       - uses: actions/checkout@v4
+
       - name: Show All Environment Variables
-      - run: |
+        run: |
           echo "The project name is: $PROJECT_NAME"
-          echo "The environment type is: $ENVIRONMENT TYPE"
+          echo "The environment type is: $ENVIRONMENT_TYPE"
           echo "GitHub Actor: ${{ github.actor }}"
           echo "GitHub Workflow: ${{ github.workflow }}"
 
       - name: Generate Custom Output
         id: custom-output
-      - run: |
-          echo "echo "CUSTOM_MESSAGE=Workflow for $PROJECT_NAME, running on branch ${{ github.ref_name }}." >> $GITHUB_OUTPUT"
-      
-      - name: Message from previous steps
-      - run: echo "Message from previous job: ${{ steps.<custom-output>.outputs.CUSTOM_MESSAGE }}"
+        run: |
+          echo "CUSTOM_MESSAGE=Workflow for $PROJECT_NAME, running on branch ${{ github.ref_name }}." >> $GITHUB_OUTPUT
 
-  aws-cli:  
+      - name: Message from Previous Step
+        run: echo "Message from previous step: ${{ steps.custom-output.outputs.CUSTOM_MESSAGE }}"
+
+  aws-cli:
     runs-on: ubuntu-latest
     needs: info-collection
     steps:
@@ -40,8 +40,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: List S3 Buckets
-      - run:  aws s3 ls --region us-east-1
+        run: aws s3 ls --region us-east-1
