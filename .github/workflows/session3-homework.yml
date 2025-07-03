@@ -1,9 +1,8 @@
 name: Session 3 Homework Workflow
 
-# 1. Setting up configurations
 on:
   push:
-    branches: ["feature/session3-homework"]
+    branches: ["feature/session3-homework-debug"]
   workflow_dispatch:
 
 env:
@@ -30,18 +29,23 @@ jobs:
           echo "CUSTOM_MESSAGE=Workflow for $PROJECT_NAME, running on branch ${{ github.ref_name }}." >> $GITHUB_OUTPUT
 
       - name: Message from Previous Step
-        run: echo "Message from previous step: ${{ steps.custom-output.outputs.CUSTOM_MESSAGE }}"
+        run: |
+          echo "Message from previous step: ${{ steps.custom-output.outputs.CUSTOM_MESSAGE }}"
+
 
   aws-cli:
     runs-on: ubuntu-latest
     needs: info-collection
     steps:
       - uses: actions/checkout@v4
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
       - name: List S3 Buckets
         run: aws s3 ls --region us-east-1
+
