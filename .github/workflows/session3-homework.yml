@@ -27,3 +27,6 @@ jobs:
         id: custom-output
       - run: |
           echo "echo "CUSTOM_MESSAGE=Workflow for $PROJECT_NAME, running on branch ${{ github.ref_name }}." >> $GITHUB_OUTPUT"
+      
+      - name: Message from previous steps
+      - run: echo "Message from previous job: ${{ steps.<step-id>.outputs.CUSTOM_MESSAGE }}"
