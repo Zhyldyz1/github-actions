@@ -3,7 +3,7 @@ name: Session 3 Homework Workflow
 on:
   push:
     branches: [ "feature/session3-homework" ]
-  workflow_dispatch:  # Manually triggered
+  workflow_dispatch:  # We should manually trigger the workflow
 
 
 env: 
@@ -30,3 +30,15 @@ jobs:
       
       - name: Message from previous steps
       - run: echo "Message from previous job: ${{ steps.<step-id>.outputs.CUSTOM_MESSAGE }}"
+
+  aws-cli:  
+    runs-on: ubuntu-latest
+    needs: info-collection
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: us-east-1
