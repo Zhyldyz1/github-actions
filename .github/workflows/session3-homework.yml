@@ -29,7 +29,9 @@ jobs:
           echo "CUSTOM_MESSAGE=Workflow for $PROJECT_NAME, running on branch ${{ github.ref_name }}." >> $GITHUB_OUTPUT
 
       - name: Message from Previous Step
-        run: echo "Message from previous step: ${{ steps.custom-output.outputs.CUSTOM_MESSAGE }}"
+        run: |
+          echo "Message from previous step: ${{ steps.custom-output.outputs.CUSTOM_MESSAGE }}"
+
 
   aws-cli:
     runs-on: ubuntu-latest
