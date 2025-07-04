@@ -3,7 +3,9 @@ name: Session3 Env & Output
 on:
   push:
     branches:
-      - feature/session3-env-output
+      - fix/triggers
+    paths:
+      - '.github/workflows/session3-env-output.yml'
   workflow_dispatch:
 
 env:

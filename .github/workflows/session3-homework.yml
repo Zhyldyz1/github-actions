@@ -2,7 +2,10 @@ name: Session 3 Homework Workflow
 
 on:
   push:
-    branches: ["feature/session3-homework-debug"]
+    branches:
+      - fix/triggers
+    paths:
+      - '.github/workflows/session3-homework.yml'
   workflow_dispatch:
 
 env:
@@ -31,7 +34,6 @@ jobs:
       - name: Message from Previous Step
         run: |
           echo "Message from previous step: ${{ steps.custom-output.outputs.CUSTOM_MESSAGE }}"
-
 
   aws-cli:
     runs-on: ubuntu-latest
