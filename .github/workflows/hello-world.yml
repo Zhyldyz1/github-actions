@@ -2,8 +2,9 @@ name: Hello World
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - '.github/workflows/**'
+    
 
 jobs:
   Explore-GitHub-Actions:
