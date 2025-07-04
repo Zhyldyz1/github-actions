@@ -1,0 +1,30 @@
+name: Bash & Python Scripts
+on:
+  push:
+    branches: 
+      - feature/scripts
+      - main
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/session4-classwork.yml'
+jobs:
+  bash-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@V4
+
+      - name: Run bash script
+        working-directory: scripts
+        run: bash simple_bash.sh
+
+  python-script:
+    runs-on: ubuntu-latest
+    needs: bash-script
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@V4
+
+      - name: Run python script
+        working-directory: scripts
+        run: python simple_python.py
