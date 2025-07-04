@@ -2,8 +2,11 @@ name: Session2 Class Work
 
 on:
   push:
-    paths:
-      - '.github/workflows/**'
+    branches:
+      - feature/session2-class
+      - fix/triggers
+    path:
+      - '.github/workflows/session2-class.yml'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:  # Manual trigger
