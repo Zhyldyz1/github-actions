@@ -3,7 +3,7 @@ name: Session 3 Homework Workflow
 on:
   push:
     branches:
-      -fix/triggers
+      - fix/triggers
     paths:
       - '.github/workflows/session3-homework.yml'
   workflow_dispatch:
