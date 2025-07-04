@@ -2,8 +2,10 @@ name: Hello World
 
 on:
   push:
+    branches:
+      -main
     paths:
-      - '.github/workflows/**'
+      - '.github/workflows/hello-world.yml'
     
 
 jobs:
