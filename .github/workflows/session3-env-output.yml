@@ -2,8 +2,8 @@ name: Session3 Env & Output
 
 on:
   push:
-    branches:
-      - feature/session3-env-output
+    paths:
+      - '.github/workflows/**'
   workflow_dispatch:
 
 env:
