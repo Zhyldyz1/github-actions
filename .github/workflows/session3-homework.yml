@@ -2,7 +2,8 @@ name: Session 3 Homework Workflow
 
 on:
   push:
-    branches: ["feature/session3-homework-debug"]
+    paths:
+      - '.github/workflows/**'
   workflow_dispatch:
 
 env:
