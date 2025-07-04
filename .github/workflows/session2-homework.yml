@@ -2,8 +2,8 @@ name: Session 2 Homework Pipeline
 
 on:
   push:
-    paths:
-      - '.github/workflows/**'
+    branches: [production]
+    paths: ['app/**']
   workflow_dispatch:
     inputs:
       environment:
