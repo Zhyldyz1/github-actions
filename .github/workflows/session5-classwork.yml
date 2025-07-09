@@ -49,6 +49,7 @@ jobs:
         id: python_run
         if: ${{ steps.python_setup.outcome == 'success' }}
         working-directory: scripts
+        continue-on-error: true
         run: |
           python simple_python.py
           echo "Hey, it was executed successfully"
