@@ -55,6 +55,6 @@ jobs:
           exit 1
       
       - name: Condition if the previous step is failed
-        # if: ${{ steps.python_setup.outcome == 'failure' }}
+        if: ${{ steps.python_setup.outcome == 'failure' }}
         run: |
           echo ${{steps.python_run.outcome}}
