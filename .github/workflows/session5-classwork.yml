@@ -30,3 +30,10 @@ jobs:
         working-directory: scripts
         run: |
           python simple_python.py
+
+  job-b:
+    needs: job-a
+    steps:
+      - name: Show
+        run: |
+           echo "${{github.ref}}"
