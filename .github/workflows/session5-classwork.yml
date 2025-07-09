@@ -32,6 +32,7 @@ jobs:
           python simple_python.py
 
   job-b:
+    runs-on: ubuntu-latest
     needs: job-a
     steps:
       - name: Show
