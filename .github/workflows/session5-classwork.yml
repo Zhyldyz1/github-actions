@@ -34,7 +34,7 @@ jobs:
   job-b:
     runs-on: ubuntu-latest
     needs: job-a
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/session5-classwork'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -52,4 +52,4 @@ jobs:
           python simple_python.py
           echo "Hey, it was executed successfully"
       
-      
+
