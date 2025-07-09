@@ -34,7 +34,22 @@ jobs:
   job-b:
     runs-on: ubuntu-latest
     needs: job-a
+    if: github.ref == 'refs/heads/main'
     steps:
-      - name: Show
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        id: python_setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+
+      - name: Run Python Script
+        if: ${{ steps.python_setup.outcome == 'success' }}
+        working-directory: scripts
         run: |
-           echo "${{github.ref}}"
+          python simple_python.py
+          echo "Hey, it was executed successfully"
+      
+      
