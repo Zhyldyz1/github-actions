@@ -22,7 +22,7 @@ jobs:
       - name: Install Python Dependencies
         id: install-dependency
         run: |
-          python -m pip install --upgrade pip
+          python -m pipp install --upgrade pip
           pip install -r app/requirements.txt
       - name: Run Pytest
         if: success() 
