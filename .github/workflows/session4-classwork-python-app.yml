@@ -22,10 +22,12 @@ jobs:
       - name: Install Python Dependencies
         id: install-dependency
         run: |
-          python -m pipp install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r app/requirements.txt
+
       - name: Run Pytest
         if: success() 
         run: |
           cd app
           pytest
+          echo "It was done successfully"
