@@ -1,0 +1,13 @@
+# Python bytecode files
+*.pyc
+__pycache__/
+
+# pytest cache directory
+.pytest_cache/
+
+# Virtual environments
+venv/
+app-venv/
+.venv/
+env/
+.env/
