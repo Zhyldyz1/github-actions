@@ -44,6 +44,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{env.PYTHON_VERSION}}
+        run: |
+           exit 1
 
       - name: Run Python Script
         if: ${{ steps.python_setup.outcome == 'success' }}
@@ -52,4 +54,7 @@ jobs:
           python simple_python.py
           echo "Hey, it was executed successfully"
       
-
+      - name: Condition if the previous step is failed
+        # if: ${{ steps.python_setup.outcome == 'failure' }}
+        run: |
+          echo ${{steps.python_setup.outcome}}
