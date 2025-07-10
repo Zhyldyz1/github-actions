@@ -3,7 +3,7 @@ name: Session2 Class Work
 on:
   push:
     paths:
-      - '.github/workflows/**' # LEt's do some testing
+      - '.github/workflows/session2-class.yml' # LEt's do some testing
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:  # Manual trigger
