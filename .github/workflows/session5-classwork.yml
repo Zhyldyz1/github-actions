@@ -1,0 +1,60 @@
+name: Session5 - Class Work
+on:
+  push:
+    branches:
+      - main
+      - session5-classwork
+    paths:
+      - '.github/workflows/session5-classwork.yml'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env: 
+  PYTHON_VERSION: '3.9'
+
+jobs:
+  job-a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+
+      - name: Run Python Script
+        working-directory: scripts
+        run: |
+          python simple_python.py
+
+  job-b:
+    runs-on: ubuntu-latest
+    needs: job-a
+    if: github.ref == 'refs/heads/session5-classwork'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        id: python_setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+
+      - name: Run Python Script
+        id: python_run
+        if: ${{ steps.python_setup.outcome == 'success' }}
+        working-directory: scripts
+        run: |
+          python simple_python.py
+          echo "Hey, it was executed successfully"
+          exit 1
+      
+      - name: Echo if the previous step is failed
+        if: ${{ failure() && steps.python_run.outcome == 'failure' }}
+        run: |
+          echo "Failed: ${{steps.python_run.outcome}}"
