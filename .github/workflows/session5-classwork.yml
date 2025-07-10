@@ -5,7 +5,7 @@ on:
       - main
       - session5-classwork
     paths:
-      - '.github/workflows/session5-classwork.yml'
+      - '.github/workflows/main.yml'
   pull_request:
     branches:
       - main
