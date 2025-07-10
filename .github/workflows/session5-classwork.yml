@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/main.yml'
+      - '.github/workflows/session5-classwork.yml'
   pull_request:
     branches:
       - main
@@ -33,7 +33,7 @@ jobs:
   job-b:
     runs-on: ubuntu-latest
     needs: job-a
-    if: ${{ github.ref == 'refs/heads/session5-classwork' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
