@@ -34,7 +34,7 @@ jobs:
   job-b:
     runs-on: ubuntu-latest
     needs: job-a
-    if: github.ref == 'refs/heads/session5-classwork'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
