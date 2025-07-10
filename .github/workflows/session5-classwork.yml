@@ -50,6 +50,7 @@ jobs:
         if: ${{ steps.setup-python.outcome == 'success' }}
         run: |
           python simple_python.py 
+          echo "The previous step is executed correctly."
           # exit 1
       - name: echo previous step failed 
         if: ${{ failure() && steps.run-script.outcome == 'failure' }}
