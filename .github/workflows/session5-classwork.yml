@@ -49,7 +49,7 @@ jobs:
         id: run-script
         if: ${{ steps.setup-python.outcome == 'success' }}
         run: |
-          python run.py 
+          python simple_python.py 
           exit 1
       - name: echo previous step failed 
         if: ${{ failure() && steps.run-script.outcome == 'failure' }}
