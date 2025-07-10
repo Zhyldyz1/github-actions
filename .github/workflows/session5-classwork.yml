@@ -54,4 +54,4 @@ jobs:
       - name: echo previous step failed 
         if: ${{ failure() && steps.run-script.outcome == 'failure' }}
         run: |
-          echo "The previous step failed, but we are continuing."
+          echo "The previous step failed, however we continue."
