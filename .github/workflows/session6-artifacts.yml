@@ -1,13 +1,11 @@
 name: Custom Scripts and Artifact Upload
 on:
-  schedule:
-    - on:
-      branches:
+    branches:
       - main
       - feauture/artifacts-classwork
-      paths:
+    paths:
       - '.github/workflows/session6-artifacts.yml'
-  workflow_dispatch:
+workflow_dispatch:
 
 env: 
   PYTHON_VERSION: '3.12'
