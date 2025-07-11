@@ -1,0 +1,48 @@
+name: Conditional Workflow
+on:
+  push:
+    branches:
+      - main
+      - session5-classwork
+    paths:
+      - '.github/workflows/session5-classwork.yml'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  main-branch-specific-job:
+    if: github.ref == 'refs/heads/session5-classwork'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Running only on main branch
+        run: |
+          echo "It is running on the main branch"
+
+  test-and-notify-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+    
+      - name: Run Simulated tests
+        id: test_run
+        run: |
+          echo "Running tests..."
+          exit 0
+          # exit 1
+        continue-on-error: true 
+        
+      - name: Notify on Test Success
+        if: s${{ steps.test_run.outcome == 'success' }}
+        run: echo "It ran successfully!"
+
+      # - name: Notify on Test Failure
+      #   if: ${{ steps.test_run.outcome == 'failure'}}
+      #   run: echo "Test failed. Please check it."
+
+      # - name: PR-Specific Check 
+      #   if: github.event_name == 'pull_request'
+      #
