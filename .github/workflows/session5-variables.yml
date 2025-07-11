@@ -1,0 +1,50 @@
+name: Workflow Variables
+env: 
+  GLOBAL_MESSAGE: "This is a message from the global scope" 
+on:
+  push:
+    branches:
+      - main
+      - feature/variables-classwork
+    paths:
+      - '.github/workflows/session5-variables.yml'
+  pull_request:
+    branches: 
+      -main
+  workflow_dispatch:
+
+jobs:
+  variable-showcase:
+    runs-on: ubuntu-latest
+    env:
+      JOB_CONFIG_TYPE: "Build Configuration A"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Display Global and Job variables
+        run: |
+          echo "Global Message: $GLOBAL_MESSAGE"
+          echo "JOB_CONFIG_TYPE: $JOB_CONFIG_TYPE"
+      
+      - name: Display Default GitHub Variables
+        run: |
+          echo "event_name: ${{ github.event_name }}"
+          echo "ref: ${{ github.ref }}"
+          echo "actor: ${{ github.actor }}"
+          echo "runner_os: ${{ runner.os }}"      
+      
+      - name: Display Step Level variable
+        env: 
+           STEP_SETTING: "Specific Step Adjustment"
+        run: |
+          echo "STEP_SETTING: $STEP_SETTING"
+          echo "JOB_CONFIG_TYPE (again): $JOB_CONFIG_TYPE"
+
+      - name: Conditional Step for Push Events
+        if: ${{ github.event_name == 'push' }}
+        run: echo "Note:It was executed only by pus event."
+
+      - name: Execute only on Pull Request Event
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo " Note:It was executed only by pull request events."
