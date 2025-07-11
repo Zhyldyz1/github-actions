@@ -34,3 +34,11 @@ jobs:
           echo "It is a confirmation that the txt file has been created"
           ls -l scripts/
           cat scripts/bash-report.txt
+      
+      - name: Run Python Script
+        run: |
+          chmod +x scripts/data.py 
+          ./scripts/data.py
+          echo "It is a confirmation that the file has been created"
+          ls -l scripts/
+          cat scripts/python-data.json
