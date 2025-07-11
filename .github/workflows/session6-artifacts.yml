@@ -1,5 +1,6 @@
 name: Custom Scripts and Artifact Upload
 on:
+  push:
     branches:
       - main
       - feauture/artifacts-classwork
