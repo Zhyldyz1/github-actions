@@ -40,3 +40,11 @@ jobs:
         run: |
           echo "STEP_SETTING: $STEP_SETTING"
           echo "JOB_CONFIG_TYPE (again): $JOB_CONFIG_TYPE"
+
+      - name: Conditional Step for Push Events
+        if: ${{ github.event_name == 'push' }}
+        run: echo "Note:It was executed only by pus event."
+
+      - name: Execute only on Pull Request Event
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo " Note:It was executed only by pull request events."
