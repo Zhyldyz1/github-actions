@@ -18,7 +18,7 @@ env:
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   tf_plan:
     name: Terraform Plan
@@ -47,21 +47,21 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./infra
+        working-directory: infra
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: ./infra
+        working-directory: infra
 
       - name: Terraform Plan
         run: terraform plan -var-file="terraform.tfvars" -out=tfplan
-        working-directory: ./infra
+        working-directory: infra
 
       - name: Upload Plan Artifact
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: ./infra
+          path: infra
  #
   # tf_deploy:
   #   name: Terraform Deploy
