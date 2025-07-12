@@ -1,0 +1,64 @@
+name: Custom Scripts and Artifact Upload
+
+on:
+  push: 
+    branches:
+      - feature/artifacts-classwork
+    workflow_dispatch:
+    schedule:
+      - cron: '*/5 * * * *' 
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - feature/artifacts-classwork
+#     paths:
+#       - '.github/workflows/session6-artifacts.yml'
+#   pull_request:
+#     branches: 
+#       -main
+#   workflow_dispatch:
+
+env: 
+  PYTHON_VERSION: 3.12
+  # Sample
+
+jobs:
+  generate-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+
+      - name: Run Bash Script
+        working-directory: scripts
+        run: | 
+          bash report.sh
+          ls -la 
+          cat bash-report.txt
+      
+      - name: Run Python Script
+        working-directory: scripts
+        run: |
+          python3 data.py
+          ls -la 
+          cat python-data.json
+
+      - name: Upload Bash Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-bash-report
+          path: scripts/bash-report.txt
+          
+      - name: Upload Python Data Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-python-data
+          path: scripts/python-data.json
