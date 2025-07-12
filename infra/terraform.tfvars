@@ -1,0 +1,1 @@
+bucket_name = "github-actions-tf-task-zhyldyz"
