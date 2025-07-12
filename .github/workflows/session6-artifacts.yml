@@ -1,9 +1,12 @@
 name: Custom Scripts and Artifact Upload
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *' 
+  push: 
+    branches:
+      - feature/artifacts-classwork
+    workflow_dispatch:
+    schedule:
+      - cron: '*/5 * * * *' 
 
 # on:
 #   push:
