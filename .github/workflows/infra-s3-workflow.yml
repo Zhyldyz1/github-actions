@@ -5,7 +5,7 @@ on:
       - main
       - infra/s3-bucket-task
     paths:
-      - '.github/workflows/session5-classwork.yml'
+      - '.github/workflows/infra-s3-workflow.yml'
   pull_request:
      branches:
       - main
