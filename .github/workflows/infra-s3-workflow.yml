@@ -11,7 +11,7 @@ on:
       - main
   workflow_dispatch:
 
-# jobs:
+jobs:
 #   tf_plan:
 #     name: Terraform Plan
 #     runs-on: ubuntu-latest
