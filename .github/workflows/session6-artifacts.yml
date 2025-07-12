@@ -28,7 +28,7 @@ jobs:
           python-version: ${{env.PYTHON_VERSION}}
 
       - name: Run Bash Script
-        working-derictory: 'scripts'
+        working-directory: 'scripts'
         run: | 
           bash report.sh
           ls -la 
