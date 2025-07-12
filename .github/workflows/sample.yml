@@ -1,0 +1,91 @@
+name: Infra S3 Workflow
+
+on: 
+  push:
+    branches:
+      - main
+      - infra/s3-bucket-task
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AWS_REGION: 'us-east-1' 
+  S3_BUCKET_NAME: 'github-actions-tf-task-sadraliev' 
+  TF_VERSION: '1.11.4' 
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  tf_plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 'Configure AWS CLI'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.OIDC_ASSUME_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        working-directory: infra
+        run: terraform init
+
+      - name: Terraform validate
+        working-directory: infra
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: infra
+        run: terraform plan -out="plan.tfplan" -var="s3_bucket_name=${{ env.S3_BUCKET_NAME }}" -var="aws_region=${{ env.AWS_REGION }}" 
+
+      - name: Upload Terraform Plan Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: ./infra/plan.tfplan
+
+
+  tf_deploy:
+    runs-on: ubuntu-latest
+    needs: tf_plan
+    if: ${{ github.ref_name == 'main'}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 'Configure AWS CLI'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.OIDC_ASSUME_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        working-directory: infra
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: infra
+        run: terraform apply -auto-approve -var="s3_bucket_name=${{ env.S3_BUCKET_NAME }}" -var="aws_region=${{ env.AWS_REGION }}"
+
+      - name: List S3 Buckets
+        run: aws s3 ls --region ${{ env.AWS_REGION }}
+
+      - name: Terraform Destroy
+        working-directory: infra
+        run: terraform destroy -auto-approve -var="s3_bucket_name=${{ env.S3_BUCKET_NAME }}" -var="aws_region=${{ env.AWS_REGION }}"

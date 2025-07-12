@@ -11,6 +11,14 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  AWS_REGION: 'us-east-1' 
+  S3_BUCKET_NAME: 'github-actions-tf-task-zhyldyz' 
+
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   tf_plan:
     name: Terraform Plan
