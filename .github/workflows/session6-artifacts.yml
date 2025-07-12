@@ -1,24 +1,24 @@
 name: Custom Scripts and Artifact Upload
 
-on:
-  push: 
-    branches:
-      - main
-    workflow_dispatch:
-    schedule:
-      - cron: '*/5 * * * *' 
-
 # on:
-#   push:
+#   push: 
 #     branches:
 #       - main
-#       - feature/artifacts-classwork
-#     paths:
-#       - '.github/workflows/session6-artifacts.yml'
-#   pull_request:
-#     branches: 
-#       -main
-#   workflow_dispatch:
+#     workflow_dispatch:
+#     schedule:
+#       - cron: '*/5 * * * *' 
+
+on:
+  push:
+    branches:
+      - main
+      - feature/artifacts-classwork
+    paths:
+      - '.github/workflows/session6-artifacts.yml'
+  pull_request:
+    branches: 
+      -main
+  workflow_dispatch:
 
 env: 
   PYTHON_VERSION: 3.12
