@@ -12,56 +12,56 @@ on:
   workflow_dispatch:
 
 jobs:
-#   tf_plan:
-#     name: Terraform Plan
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v4
+  tf_plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-#       - name: Terraform Init
-#         run: terraform init
-#         working-directory: ./infra/s3
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./infra/s3
 
-#       - name: Terraform Validate
-#         run: terraform validate
-#         working-directory: ./infra/s3
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ./infra/s3
 
-#       - name: Terraform Plan
-#         run: terraform plan -var-file="terraform.tfvars" -out=tfplan
-#         working-directory: ./infra/s3
+      - name: Terraform Plan
+        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
+        working-directory: ./infra/s3
 
-#       - name: Upload Plan Artifact
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: tfplan
-#           path: ./infra/s3/tfplan
+      - name: Upload Plan Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: ./infra/s3/tfplan
 
-#   tf_deploy:
-#     name: Terraform Deploy
-#     needs: tf_plan
-#     if: github.ref == 'refs/heads/main'
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v4
+  # tf_deploy:
+  #   name: Terraform Deploy
+  #   needs: tf_plan
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v4
 
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v3
+  #     - name: Setup Terraform
+  #       uses: hashicorp/setup-terraform@v3
 
-#       - name: Download Plan
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: tfplan
-#           path: ./infra/s3
+  #     - name: Download Plan
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: tfplan
+  #         path: ./infra/s3
 
-#       - name: Terraform Init
-#         run: terraform init
-#         working-directory: ./infra/s3
+  #     - name: Terraform Init
+  #       run: terraform init
+  #       working-directory: ./infra/s3
 
-#       - name: Terraform Apply
-#         run: terraform apply tfplan
-#         working-directory: ./infra/s3
+  #     - name: Terraform Apply
+  #       run: terraform apply tfplan
+  #       working-directory: ./infra/s3
