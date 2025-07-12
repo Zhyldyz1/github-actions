@@ -3,7 +3,7 @@ name: Custom Scripts and Artifact Upload
 on:
   push: 
     branches:
-      - feature/artifacts-classwork
+      - main
     workflow_dispatch:
     schedule:
       - cron: '*/5 * * * *' 
