@@ -28,14 +28,14 @@ jobs:
           python-version: ${{env.PYTHON_VERSION}}
 
       - name: Run Bash Script
-        working-directory: 'scripts'
+        working-directory: scripts
         run: | 
           bash report.sh
           ls -la 
           cat bash-report.txt
       
       - name: Run Python Script
-        working-directory: 'scripts'
+        working-directory: scripts
         run: |
           python3 data.py
           ls -la 
