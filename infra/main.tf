@@ -1,7 +1,9 @@
-provider "aws" {
-  region = "us-east-1"
-}
-resource "aws_s3_bucket" "task_bucket" {
+resource "aws_s3_bucket" "name" {
   bucket = var.bucket_name
-  force_destroy = true
+
+  tags = {
+    Environment = "Dev"
+    Project     = "GitHub Actions Demo"
+    Owner       = "Zhyldyz1"
+  }
 }

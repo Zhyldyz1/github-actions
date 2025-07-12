@@ -13,7 +13,7 @@ on:
 
 env:
   AWS_REGION: 'us-east-1' 
-  S3_BUCKET_NAME: 'github-actions-tf-task-zhyldyz' 
+  S3_BUCKET_NAME: 'terraform-session-backend-bucket-zhyldyz' 
 
 permissions:
   id-token: write
@@ -60,8 +60,9 @@ jobs:
       - name: Upload Plan Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tfplan
-          path: infra
+          name: terraform-plan
+          path: infra/plan.tfplan
+          run: ls -l
  #
   # tf_deploy:
   #   name: Terraform Deploy
