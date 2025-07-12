@@ -16,11 +16,26 @@ jobs:
     name: Terraform Plan
     runs-on: ubuntu-latest
     steps:
+        # Checkout Repo
       - name: Checkout Code
         uses: actions/checkout@v4
 
+        # Setup terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        with: 
+          terraform_version: 1.12.2
+      
+       # Configure AWS credentials
+      - name: Configure AWS credentials (Static)
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: List S3 Buckets
+        run: aws s3 ls --region us-east-1
 
       - name: Terraform Init
         run: terraform init
@@ -38,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: ./infra/s3/tfplan
+          path: ./infra
  #
   # tf_deploy:
   #   name: Terraform Deploy
