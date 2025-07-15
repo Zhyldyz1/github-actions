@@ -67,7 +67,7 @@ jobs:
     name: Terraform Deploy
     runs-on: ubuntu-latest
     needs: tf_plan
-    if: ${{ github.ref_name == 'main'}}
+    if: ${{ github.ref_name == 'infra/s3-bucket-task'}}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
