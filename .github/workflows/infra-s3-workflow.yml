@@ -63,28 +63,28 @@ jobs:
             infra/plan.tfplan
             infra/plan.json
 
-  # tf_deploy:
-  #   name: Terraform Deploy
-  #   needs: tf_plan
-  #   if: github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v4
+  tf_deploy:
+    name: Terraform Deploy
+    needs: tf_plan
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-  #     - name: Setup Terraform
-  #       uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-  #     - name: Download Plan
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: terraform-plan
-  #         path: infra
+      - name: Download Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform-plan
+          path: infra
 
-  #     - name: Terraform Init
-  #       run: terraform init
-  #       working-directory: infra
+      - name: Terraform Init
+        run: terraform init
+        working-directory: infra
 
-  #     - name: Terraform Apply
-  #       run: terraform apply plan.tfplan
-  #       working-directory: infra
+      - name: Terraform Apply
+        run: terraform apply plan.tfplan
+        working-directory: infra
