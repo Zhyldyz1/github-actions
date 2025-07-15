@@ -15,7 +15,7 @@ on:
 env:
   AWS_REGION: 'us-east-1'
   S3_BUCKET_NAME: 'github-actions-tf-task-zhyldyz'
-  TF_VERSION: '1.11.4' 
+  TF_VERSION: '~> 1.11.4' 
 
 permissions:
   id-token: write
@@ -98,4 +98,4 @@ jobs:
       - name: Terraform Destroy
         working-directory: infra
         run: terraform destroy -auto-approve -var="bucket_name=${{ env.S3_BUCKET_NAME }}" -var="aws_region=${{ env.AWS_REGION }}"
-        #checking
+        
